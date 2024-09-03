@@ -1,0 +1,25 @@
+{
+  "name": "url-shortening",
+  "version": "0.0.1",
+  "description": "URL shortening service",
+  "main": "dist/index.js",
+  "scripts": {
+	  "build": "pnpm exec tsc",
+	  "dev": "nodemon src/app.ts",
+	  "start": "node dist/index.js"
+  },
+  "keywords": [],
+  "author": "Enrique Hidalgo",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.5.2",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
