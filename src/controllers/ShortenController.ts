@@ -1,11 +1,11 @@
 import { RequestHandler } from 'express';
-import { get, getAll } from '../models/Shorten';
+import { getByCode, getAll } from '../models/Shorten';
 import HttpError from '../errors/HttpError';
 
 export const getUrl: RequestHandler = (req, res, next) => {
   const { shortCode } = req.params;
   try {
-    const url = get(shortCode);
+    const url = getByCode(shortCode);
 
     if (url == null) throw new HttpError({ status: 404, message: 'URL not found' });
 

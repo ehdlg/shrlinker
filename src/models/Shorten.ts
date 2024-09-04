@@ -9,7 +9,7 @@ export const getAll = () => {
   return result;
 };
 
-export const get = (shortCode: string) => {
+export const getByCode = (shortCode: string) => {
   const query = 'SELECT * FROM urls WHERE short_code = ?';
 
   const result = db.prepare(query).get(shortCode) as URL;
