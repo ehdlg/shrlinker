@@ -33,3 +33,16 @@ const getById = (id: number) => {
 
   return result || null;
 };
+
+export const create = (url: string) => {
+  const query = 'INSERT INTO urls(url, short_code) VALUES (?, ?)';
+  const shortCode = generateShortCode();
+
+  const insert = db.prepare(query).run(url, shortCode);
+
+  const { lastInsertRowid: id } = insert;
+
+  const result = getById(id as number);
+
+  return result;
+};
