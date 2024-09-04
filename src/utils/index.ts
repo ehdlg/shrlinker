@@ -1,7 +1,7 @@
 import { MAX_LETTER_CODE, MIN_LETTER_CODE, SHORT_URL_LENGTH } from '../constants';
 import { get } from '../models/Shorten';
 
-export const generateRandomLetter = (): string => {
+export const generateRandomLetter = () => {
   const charCode = Math.floor(
     Math.random() * (MAX_LETTER_CODE - MIN_LETTER_CODE + 1) + MIN_LETTER_CODE
   );
@@ -17,4 +17,23 @@ const checkIfCodeExists = (shortCode: string) => {
   const url = get(shortCode);
 
   return null != url;
+};
+
+const generateRandomCode = () => {
+  let code = '';
+  for (let i = 0; i < SHORT_URL_LENGTH; i++) {
+    code += generateRandomLetter();
+  }
+
+  return code;
+};
+
+export const generateShortCode = () => {
+  let shortCode;
+
+  do {
+    shortCode = generateRandomCode();
+  } while (checkIfCodeExists(shortCode));
+
+  return shortCode;
 };
