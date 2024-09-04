@@ -1,4 +1,4 @@
-import { URL } from 'url';
+import { URL } from '../types';
 import db from '../db';
 import { generateShortCode } from '../utils';
 
