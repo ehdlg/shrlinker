@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { getByCode, getAll } from '../models/Shorten';
+import { getByCode, getAll, create, getByUrl } from '../models/Shorten';
 import HttpError from '../errors/HttpError';
 
 export const getUrl: RequestHandler = (req, res, next) => {
@@ -20,6 +20,22 @@ export const getAllUrl: RequestHandler = (_req, res, next) => {
     const urls = getAll();
 
     return res.json(urls);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const createUrl: RequestHandler = (req, res, next) => {
+  try {
+    const { url } = req.body;
+
+    const isUrlDuplicate = null != getByUrl(url);
+
+    if (isUrlDuplicate) throw new HttpError({ status: 409, message: 'URL already exists' });
+
+    const newUrl = create(url);
+
+    return res.status(201).json(newUrl);
   } catch (error) {
     next(error);
   }
