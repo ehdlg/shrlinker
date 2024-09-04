@@ -6,3 +6,8 @@ export type URL = {
   created_at: string;
   updated_at: string | null;
 };
+
+export type HttpErrorOptions = {
+  status: number;
+  message: string;
+};
