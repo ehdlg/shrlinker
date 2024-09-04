@@ -16,3 +16,11 @@ export const getByCode = (shortCode: string) => {
 
   return result || null;
 };
+
+const getById = (id: number) => {
+  const query = 'SELECT * FROM urls WHERE id = ?';
+
+  const result = db.prepare(query).get(id) as URL;
+
+  return result || null;
+};
