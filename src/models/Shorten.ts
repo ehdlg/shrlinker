@@ -1,5 +1,6 @@
 import { URL } from 'url';
 import db from '../db';
+import { generateShortCode } from '../utils';
 
 export const getAll = () => {
   const query = 'SELECT * FROM urls';
@@ -15,6 +16,14 @@ export const getByCode = (shortCode: string) => {
   const result = db.prepare(query).get(shortCode) as URL;
 
   return result || null;
+};
+
+export const getByUrl = (url: string) => {
+  const query = 'SELECT * FROM urls WHERE url = ?';
+
+  const result = db.prepare(query).get(url);
+
+  return result;
 };
 
 const getById = (id: number) => {
