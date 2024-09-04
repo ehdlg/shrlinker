@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { get } from '../models/Shorten';
+import { get, getAll } from '../models/Shorten';
 import HttpError from '../errors/HttpError';
 
 export const getUrl: RequestHandler = (req, res, next) => {
@@ -10,6 +10,16 @@ export const getUrl: RequestHandler = (req, res, next) => {
     if (url == null) throw new HttpError({ status: 404, message: 'URL not found' });
 
     return res.json(url);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllUrl: RequestHandler = (_req, res, next) => {
+  try {
+    const urls = getAll();
+
+    return res.json(urls);
   } catch (error) {
     next(error);
   }
