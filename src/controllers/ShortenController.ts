@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { getByCode, getAll, create, getByUrl, deleteByCode } from '../models/Shorten';
+import { getByCode, getAll, create, getByUrl, deleteByCode, update } from '../models/Shorten';
 import HttpError from '../errors/HttpError';
 
 export const getUrl: RequestHandler = (req, res, next) => {
@@ -52,6 +52,26 @@ export const deleteUrl: RequestHandler = (req, res, next) => {
     deleteByCode(shortCode);
 
     return res.status(204).json();
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateUrl: RequestHandler = (req, res, next) => {
+  const { shortCode } = req.params;
+  const { url } = req.body;
+
+  try {
+    const urlToUpdate = getByCode(shortCode);
+
+    if (null == urlToUpdate) throw new HttpError({ status: 404, message: 'Short URL not found' });
+    if (urlToUpdate.url === url) throw new HttpError({ status: 400, message: 'Same URL' });
+
+    update(shortCode, url);
+
+    const updatedUrl = getByCode(shortCode);
+
+    return res.json(updatedUrl);
   } catch (error) {
     next(error);
   }
