@@ -46,3 +46,11 @@ export const create = (url: string) => {
 
   return result;
 };
+
+export const deleteByCode = (shortCode: string) => {
+  const query = 'DELETE FROM urls WHERE short_code = ?';
+
+  const result = db.prepare(query).run(shortCode);
+
+  return result.changes;
+};
