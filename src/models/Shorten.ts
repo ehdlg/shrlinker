@@ -54,3 +54,11 @@ export const deleteByCode = (shortCode: string) => {
 
   return result.changes;
 };
+
+export const update = (shortCode: string, newUrl: string) => {
+  const query = 'UPDATE urls SET url = ?, updated_at = CURRENT_TIMESTAMP WHERE short_code = ?';
+
+  const result = db.prepare(query).run(newUrl, shortCode);
+
+  return result.changes;
+};
