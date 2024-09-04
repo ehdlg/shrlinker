@@ -21,6 +21,7 @@ const checkIfCodeExists = (shortCode: string) => {
 
 const generateRandomCode = () => {
   let code = '';
+
   for (let i = 0; i < SHORT_URL_LENGTH; i++) {
     code += generateRandomLetter();
   }
