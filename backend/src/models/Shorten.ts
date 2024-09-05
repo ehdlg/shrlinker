@@ -25,7 +25,7 @@ export const getByUrl = (url: string) => {
                  FROM urls 
                  WHERE url = ?`;
 
-  const result = db.prepare(query).get(url);
+  const result = db.prepare(query).get(url) as URL;
 
   return result;
 };
