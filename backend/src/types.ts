@@ -1,11 +1,12 @@
 export type URL = {
   id: number;
   url: string;
-  short_code: string;
-  access_count: number;
-  created_at: string;
-  updated_at: string | null;
+  shortCode: string;
+  createdAt: string;
+  updatedAt: string | null;
 };
+
+export type URLStats = URL & { accessCount: number };
 
 export type HttpErrorOptions = {
   status: number;

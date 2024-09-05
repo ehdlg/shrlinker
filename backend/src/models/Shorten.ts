@@ -1,4 +1,4 @@
-import { URL } from '../types';
+import { URL, URLStats } from '../types';
 import db from '../db';
 import { generateShortCode } from '../utils';
 
@@ -36,7 +36,7 @@ export const getStatsByCode = (shortCode: string) => {
                  FROM urls 
                  WHERE short_code = ?`;
 
-  const result = db.prepare(query).get(shortCode) as URL;
+  const result = db.prepare(query).get(shortCode) as URLStats;
 
   return result || null;
 };
