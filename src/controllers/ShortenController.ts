@@ -29,9 +29,11 @@ export const createUrl: RequestHandler = (req, res, next) => {
   try {
     const { url } = req.body;
 
-    const isUrlDuplicate = null != getByUrl(url);
+    const existingUrl = getByUrl(url);
 
-    if (isUrlDuplicate) throw new HttpError({ status: 409, message: 'URL already exists' });
+    const isUrlDuplicate = null != existingUrl;
+
+    if (isUrlDuplicate) return res.status(200).json(existingUrl);
 
     const newUrl = create(url);
 
