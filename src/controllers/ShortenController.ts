@@ -69,6 +69,14 @@ export const updateUrl: RequestHandler = (req, res, next) => {
     if (null == urlToUpdate) throw new HttpError({ status: 404, message: 'Short URL not found' });
     if (urlToUpdate.url === url) throw new HttpError({ status: 400, message: 'Same URL' });
 
+    const existingUrl = null != getByUrl(url);
+
+    if (existingUrl)
+      throw new HttpError({
+        status: 409,
+        message: 'A resource with the provided URL already exists',
+      });
+
     update(shortCode, url);
 
     const updatedUrl = getByCode(shortCode);
