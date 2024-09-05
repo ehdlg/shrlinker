@@ -6,18 +6,19 @@ import {
   deleteUrl,
   updateUrl,
 } from '../controllers/ShortenController';
-import { deleteByCode } from '../models/Shorten';
+import { shortUrlRule, urlRule } from '../validation';
+import { validate } from '../middlewares';
 
 const router = Router();
 
-router.get('/:shortCode', getUrl);
+router.get('/:shortCode', shortUrlRule, validate, getUrl);
 
-router.delete('/:shortCode', deleteUrl);
+router.delete('/:shortCode', shortUrlRule, validate, deleteUrl);
 
-router.put('/:shortCode', updateUrl);
+router.put('/:shortCode', shortUrlRule, urlRule, validate, updateUrl);
 
 router.get('/', getAllUrl);
 
-router.post('/', createUrl);
+router.post('/', urlRule, validate, createUrl);
 
 export default router;
