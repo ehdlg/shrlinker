@@ -11,7 +11,9 @@ export const getAll = () => {
 };
 
 export const getByCode = (shortCode: string) => {
-  const query = 'SELECT * FROM urls WHERE short_code = ?';
+  const query = `SELECT id, url, short_code as shortCode, created_at as createdAt, updated_at as updatedAt 
+                 FROM urls 
+                WHERE short_code = ?`;
 
   const result = db.prepare(query).get(shortCode) as URL;
 
@@ -19,7 +21,9 @@ export const getByCode = (shortCode: string) => {
 };
 
 export const getByUrl = (url: string) => {
-  const query = 'SELECT * FROM urls WHERE url = ?';
+  const query = `SELECT id, url, short_code as shortCode, created_at as createdAt, updated_at as updatedAt 
+                 FROM urls 
+                WHERE url = ?`;
 
   const result = db.prepare(query).get(url);
 
