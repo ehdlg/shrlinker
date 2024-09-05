@@ -1,5 +1,13 @@
 import { RequestHandler } from 'express';
-import { getByCode, getAll, create, getByUrl, deleteByCode, update } from '../models/Shorten';
+import {
+  getByCode,
+  getAll,
+  create,
+  getByUrl,
+  deleteByCode,
+  update,
+  getStatsByCode,
+} from '../models/Shorten';
 import HttpError from '../errors/HttpError';
 
 export const getUrl: RequestHandler = (req, res, next) => {
@@ -20,6 +28,20 @@ export const getAllUrl: RequestHandler = (_req, res, next) => {
     const urls = getAll();
 
     return res.json(urls);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getStats: RequestHandler = (req, res, next) => {
+  const { shortCode } = req.params;
+
+  try {
+    const url = getStatsByCode(shortCode);
+
+    if (url == null) throw new HttpError({ status: 404, message: 'URL not found' });
+
+    return res.json(url);
   } catch (error) {
     next(error);
   }
