@@ -7,6 +7,7 @@ import {
   deleteByCode,
   update,
   getStatsByCode,
+  incrementAccessCount,
 } from '../models/Shorten';
 import HttpError from '../errors/HttpError';
 
@@ -16,6 +17,8 @@ export const getUrl: RequestHandler = (req, res, next) => {
     const url = getByCode(shortCode);
 
     if (url == null) throw new HttpError({ status: 404, message: 'URL not found' });
+
+    incrementAccessCount(shortCode);
 
     return res.json(url);
   } catch (error) {
