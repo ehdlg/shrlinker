@@ -62,3 +62,11 @@ export const update = (shortCode: string, newUrl: string) => {
 
   return result.changes;
 };
+
+export const incrementAccessCount = (shortCode: string) => {
+  const query = 'UPDATE urls SET access_count = access_count + 1 WHERE short_code = ?';
+
+  const result = db.prepare(query).run(shortCode);
+
+  return result.changes;
+};
