@@ -8,3 +8,5 @@ export const MIN_LETTER_CODE = 'a'.charCodeAt(0);
 export const MAX_LETTER_CODE = 'z'.charCodeAt(0);
 
 export const SHORT_URL_LENGTH = 6;
+
+export const SHORT_URL_REGEXP = /^[A-Za-z]{6}$/;
