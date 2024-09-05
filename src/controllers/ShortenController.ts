@@ -47,9 +47,9 @@ export const deleteUrl: RequestHandler = (req, res, next) => {
   const { shortCode } = req.params;
 
   try {
-    const exists = null != getByCode(shortCode);
+    const shortCodeExists = null != getByCode(shortCode);
 
-    if (!exists) throw new HttpError({ status: 404, message: 'URL not found' });
+    if (!shortCodeExists) throw new HttpError({ status: 404, message: 'URL not found' });
 
     deleteByCode(shortCode);
 
