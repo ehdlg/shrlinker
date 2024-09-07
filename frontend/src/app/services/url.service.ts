@@ -14,6 +14,8 @@ export class UrlService {
   public $url = this.urlSubject.asObservable();
 
   get(shortCode: string): void {
+    if (shortCode === this.getShortCode()) return;
+
     this.http
       .get<URL>(`${environment.apiUrl}/${shortCode}`)
       .pipe(take(1))
@@ -21,6 +23,8 @@ export class UrlService {
   }
 
   create(url: string): void {
+    if (url === this.getLongUrl()) return;
+
     const body = {
       url,
     };
@@ -32,10 +36,20 @@ export class UrlService {
         },
       })
       .pipe(take(1))
-      .subscribe((url) => this.updateUrl(url));
+      .subscribe((url) => {
+        this.updateUrl(url);
+      });
   }
 
   updateUrl(newUrl: URL) {
     this.urlSubject.next(newUrl);
+  }
+
+  getLongUrl() {
+    return this.urlSubject.getValue()?.url || null;
+  }
+
+  getShortCode() {
+    return this.urlSubject.getValue()?.shortCode;
   }
 }
