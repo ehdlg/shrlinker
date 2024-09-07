@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { URL } from '../types';
-import { Observable, take } from 'rxjs';
+import { BehaviorSubject, take } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -10,22 +10,32 @@ import { environment } from '../../environments/environment';
 export class UrlService {
   constructor(private http: HttpClient) {}
 
-  get(shortCode: string): Observable<URL> {
-    return this.http
+  private urlSubject = new BehaviorSubject<URL | null>(null);
+  public $url = this.urlSubject.asObservable();
+
+  get(shortCode: string): void {
+    this.http
       .get<URL>(`${environment.apiUrl}/${shortCode}`)
-      .pipe(take(1));
+      .pipe(take(1))
+      .subscribe((url) => this.updateUrl(url));
   }
 
-  create(url: string): Observable<URL> {
+  create(url: string): void {
     const body = {
       url,
     };
-    return this.http
+
+    this.http
       .post<URL>(environment.apiUrl, body, {
         headers: {
           'Content-type': 'application/json',
         },
       })
-      .pipe(take(1));
+      .pipe(take(1))
+      .subscribe((url) => this.updateUrl(url));
+  }
+
+  updateUrl(newUrl: URL) {
+    this.urlSubject.next(newUrl);
   }
 }
