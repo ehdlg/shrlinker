@@ -1,3 +1,5 @@
+import { HttpErrorResponse } from '@angular/common/http';
+
 export type URL = {
   id: number;
   url: string;
@@ -7,3 +9,10 @@ export type URL = {
 };
 
 export type URLStats = URL & { accessCount: number };
+
+export interface ErrorResponse extends HttpErrorResponse {
+  error: {
+    error?: string;
+    errors?: string[];
+  };
+}

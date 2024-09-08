@@ -42,7 +42,8 @@ export const getStatsByCode = (shortCode: string) => {
 };
 
 const getById = (id: number) => {
-  const query = 'SELECT * FROM urls WHERE id = ?';
+  const query = `SELECT id, url, short_code as shortCode, created_at as createdAt, updated_at as updatedAt  
+                FROM urls WHERE id = ?`;
 
   const result = db.prepare(query).get(id) as URL;
 
