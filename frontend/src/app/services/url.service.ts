@@ -11,7 +11,7 @@ export class UrlService {
   constructor(private http: HttpClient) {}
 
   private urlSubject = new BehaviorSubject<URL | null>(null);
-  public $url = this.urlSubject.asObservable();
+  public url$ = this.urlSubject.asObservable();
 
   get(shortCode: string): void {
     if (shortCode === this.getShortCode()) return;

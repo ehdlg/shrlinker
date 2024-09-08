@@ -22,7 +22,7 @@ export class RedirectComponent implements OnInit {
     private router: Router,
     private errorService: ErrorService
   ) {
-    this.url$ = this.service.$url;
+    this.url$ = this.service.url$;
     this.error$ = this.errorService.error$;
   }
 

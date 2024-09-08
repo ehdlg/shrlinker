@@ -40,7 +40,7 @@ export class UrlComponent {
   public $url!: Observable<URL | null>;
   public shortCode: string = '';
   constructor(private service: UrlService) {
-    this.$url = this.service.$url;
+    this.$url = this.service.url$;
   }
 
   onSubmit() {
