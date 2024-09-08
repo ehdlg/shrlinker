@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class ErrorService {
   constructor() {}
   private errorSubject = new BehaviorSubject<string | null>(null);
-  public $error = this.errorSubject.asObservable();
+  public error$ = this.errorSubject.asObservable();
 
   setError(error: string) {
     this.errorSubject.next(error);

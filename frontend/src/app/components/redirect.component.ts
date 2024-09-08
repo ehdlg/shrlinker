@@ -23,7 +23,7 @@ export class RedirectComponent implements OnInit {
     private errorService: ErrorService
   ) {
     this.url$ = this.service.$url;
-    this.error$ = this.errorService.$error;
+    this.error$ = this.errorService.error$;
   }
 
   ngOnInit(): void {
