@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { UrlComponent } from './components/url.component';
+import { HeaderComponent } from './components/header.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, HeaderComponent, UrlComponent],
   template: `
-    <h1 class="text-center underline text-3xl">Welcome to {{ title }}!</h1>
+    <app-header />
 
-    <router-outlet />
+    <main class="h-full m-auto max-w-4xl mt-20">
+      <router-outlet />
+    </main>
   `,
   styles: [],
 })
-export class AppComponent {
-  title = 'frontend';
-}
+export class AppComponent {}
