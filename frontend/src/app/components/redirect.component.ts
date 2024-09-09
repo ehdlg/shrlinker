@@ -22,20 +22,24 @@ export class RedirectComponent implements OnInit {
     private router: Router,
     private errorService: ErrorService
   ) {
-    this.url$ = this.service.$url;
+    this.url$ = this.service.url$;
     this.error$ = this.errorService.error$;
   }
 
   ngOnInit(): void {
-    this.service.get(this.shortCode);
+    if (
+      null == this.service.getShortCode() ||
+      this.shortCode != this.service.getShortCode()
+    ) {
+      this.service.get(this.shortCode);
+    }
 
     this.error$.subscribe((error) => {
-      if (null != error) this.router.navigate(['']);
+      if (null != error) return this.returnHome();
     });
 
     this.url$.subscribe((url) => {
       if (null == url) return;
-
       let longUrl = url.url;
 
       if (!longUrl.startsWith('http://') && !longUrl.startsWith('https://'))
@@ -43,5 +47,9 @@ export class RedirectComponent implements OnInit {
 
       window.location.href = longUrl;
     });
+  }
+
+  returnHome() {
+    this.router.navigate(['']);
   }
 }

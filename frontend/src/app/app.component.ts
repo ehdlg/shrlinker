@@ -10,7 +10,7 @@ import { HeaderComponent } from './components/header.component';
   template: `
     <app-header />
 
-    <main class="h-full m-auto max-w-4xl mt-20">
+    <main class="h-full m-auto max-w-md mt-12 md:mt-32">
       <router-outlet />
     </main>
   `,
