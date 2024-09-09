@@ -52,4 +52,8 @@ export class UrlService {
   getShortCode() {
     return this.urlSubject.getValue()?.shortCode;
   }
+
+  clearURL() {
+    this.urlSubject.next(null);
+  }
 }
